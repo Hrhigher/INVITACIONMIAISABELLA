@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Invitación Mia - Cumpleaños</title>
+  <meta name="description" content="Invitación de cumpleaños de Mia. Sábado 15 de agosto, 2:00 PM, Salón Xalapa Kids." />
+  <meta name="theme-color" content="#c86f3d" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- Replace YOUR-DOMAIN.com with the real public URL after publishing -->
+  <link rel="canonical" href="https://YOUR-DOMAIN.com/" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Invitación Mia" />
+  <meta property="og:title" content="Mia cumple 1 año" />
+  <meta property="og:description" content="Estás invitado a su fiesta. Sábado 15 de agosto, 2:00 PM, Salón Xalapa Kids." />
+  <meta property="og:url" content="https://YOUR-DOMAIN.com/" />
+  <meta property="og:image" content="https://YOUR-DOMAIN.com/assets/wa-preview.jpg" />
+  <meta property="og:image:secure_url" content="https://YOUR-DOMAIN.com/assets/wa-preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Vista previa de la invitación de cumpleaños de Mia" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mia cumple 1 año" />
+  <meta name="twitter:description" content="Estás invitado a su fiesta. Sábado 15 de agosto, 2:00 PM, Salón Xalapa Kids." />
+  <meta name="twitter:image" content="https://YOUR-DOMAIN.com/assets/wa-preview.jpg" />
+  <style>
+    :root {
+      --poster-ratio: 3584 / 7767;
+      --poster-max-width: 520px;
+      --map-left: 20%;
+      --map-top: 73.4%;
+      --map-width: 58%;
+      --map-height: 19.6%;
+      --warm-orange: #c86f3d;
+      --soft-cream: #f6e4ae;
+      --soft-mint: #9edcc7;
+      --soft-coral: #ec8d80;
+      --button-orange: #e98728;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(225, 110, 49, .62) 0 20%, transparent 46%),
+        radial-gradient(circle at 88% 18%, rgba(255, 188, 86, .45) 0 18%, transparent 44%),
+        radial-gradient(circle at 14% 74%, rgba(154, 222, 201, .50) 0 16%, transparent 38%),
+        radial-gradient(circle at 92% 88%, rgba(236, 141, 128, .56) 0 18%, transparent 42%),
+        linear-gradient(160deg, #bd693c 0%, #f6e1aa 49%, #ef927f 100%);
+      background-attachment: fixed;
+    }
+
+    .page-shell {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(0px, 2.2vw, 24px);
+    }
+
+    .invitation {
+      position: relative;
+      width: min(100vw, calc((100dvh - clamp(0px, 4.4vw, 48px)) * (3584 / 7767)), var(--poster-max-width));
+      aspect-ratio: var(--poster-ratio);
+      overflow: hidden;
+      border-radius: clamp(0px, 1.8vw, 18px);
+      box-shadow: 0 20px 70px rgba(71, 42, 23, .28);
+      background: #f5dfaa;
+      isolation: isolate;
+    }
+
+    .invitation-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .map-card {
+      position: absolute;
+      left: var(--map-left);
+      top: var(--map-top);
+      width: var(--map-width);
+      height: var(--map-height);
+      z-index: 2;
+      border-radius: 3.6cqw;
+      overflow: hidden;
+      background: #ed9239;
+      box-shadow:
+        0 .8cqw 2.4cqw rgba(0,0,0,.18),
+        inset 0 0 0 .28cqw rgba(255,255,255,.22);
+      transform: translateZ(0);
+    }
+
+    .map-card iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      filter: saturate(.94) sepia(.10) contrast(.96) brightness(1.03);
+    }
+
+    .location-button {
+      position: absolute;
+      right: 4.2%;
+      top: 4.2%;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35em;
+      padding: .65em .92em .62em;
+      border-radius: 999px;
+      color: #d96f20;
+      background: rgba(255,255,255,.96);
+      font-size: clamp(11px, 2.6cqw, 18px);
+      line-height: 1;
+      font-weight: 900;
+      text-decoration: none;
+      letter-spacing: .01em;
+      box-shadow: 0 .55cqw 1.35cqw rgba(0,0,0,.22);
+      backdrop-filter: blur(3px);
+      animation: locationPulse 2.7s ease-in-out infinite;
+    }
+
+    .location-button:hover,
+    .location-button:focus-visible {
+      outline: none;
+      transform: translateY(-.16cqw) scale(1.035);
+      box-shadow: 0 .75cqw 1.8cqw rgba(0,0,0,.28);
+    }
+
+    .map-soft-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(255,255,255,.20), transparent 42%, rgba(255,143,41,.16));
+      mix-blend-mode: soft-light;
+    }
+
+    @keyframes locationPulse {
+      0%, 100% { scale: 1; }
+      50% { scale: 1.055; }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        display: block;
+        padding: 0;
+      }
+
+      .invitation {
+        width: 100vw;
+        max-width: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media (min-width: 641px) and (max-height: 760px) {
+      .page-shell { place-items: start center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <main class="invitation" aria-label="Invitación de cumpleaños de Mia">
+      <picture>
+        <source srcset="assets/invitacion-mia-bg-645.webp 645w, assets/invitacion-mia-bg-1290.webp 1290w" type="image/webp" sizes="(max-width: 640px) 100vw, 520px" />
+        <img class="invitation-bg" src="assets/invitacion-mia-bg-1290.png" alt="Invitación de cumpleaños de Mia" width="1290" height="2796" decoding="async" />
+      </picture>
+
+      <section class="map-card" aria-label="Mapa de ubicación de Salón Xalapa Kids">
+        <iframe
+          title="Mapa de ubicación: Salón Xalapa Kids"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Salon%20Xalapa%20Kids%20Calle%20Santo%20Domingo%20esquina%20Bogota%20Xalapa&output=embed">
+        </iframe>
+        <div class="map-soft-glow" aria-hidden="true"></div>
+        <a class="location-button" href="https://maps.app.goo.gl/MfeqmTiZGzmGergo8" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación en Google Maps">
+          📍 Ubicación
+        </a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
