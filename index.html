@@ -449,9 +449,90 @@
       .intro-curtain { display: none !important; }
       body.intro-active .invitation { animation: none !important; transform: none !important; filter: none !important; }
     }
+
+
+    /* ==========================================
+       Background music button
+       The audio source is assets/song.mp3.
+       Browsers may block autoplay with sound until the first user tap.
+       ========================================== */
+    .music-button {
+      position: fixed;
+      left: max(.9rem, env(safe-area-inset-left));
+      bottom: max(.9rem, env(safe-area-inset-bottom));
+      z-index: 10000;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4em;
+      min-width: 2.85rem;
+      min-height: 2.85rem;
+      padding: .72rem .9rem;
+      border: 0;
+      border-radius: 999px;
+      color: #eb2e84;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 .55rem 1.25rem rgba(100, 42, 75, .22);
+      backdrop-filter: blur(4px);
+      font: 900 .86rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, opacity .22s ease;
+    }
+
+    .music-button:hover,
+    .music-button:focus-visible {
+      outline: none;
+      transform: translateY(-.12rem) scale(1.035);
+      box-shadow: 0 .72rem 1.55rem rgba(100, 42, 75, .28);
+    }
+
+    .music-button .music-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 1.28em;
+      height: 1.28em;
+    }
+
+    .music-button.is-playing .music-icon {
+      animation: musicBeat 1.45s ease-in-out infinite;
+    }
+
+    .music-button.needs-tap {
+      animation: musicAttention 2.5s ease-in-out infinite;
+    }
+
+    @keyframes musicBeat {
+      0%, 100% { transform: scale(1) rotate(-3deg); }
+      50% { transform: scale(1.14) rotate(4deg); }
+    }
+
+    @keyframes musicAttention {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-.18rem); }
+    }
+
+    @media (max-width: 640px) {
+      .music-button {
+        left: max(.65rem, env(safe-area-inset-left));
+        bottom: max(.65rem, env(safe-area-inset-bottom));
+        padding: .66rem .78rem;
+        font-size: .8rem;
+      }
+    }
+
   </style>
 </head>
 <body>
+
+
+  <audio id="birthday-music" preload="auto" autoplay loop>
+    <source src="assets/song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button class="music-button" type="button" aria-label="Activar o pausar música" aria-pressed="false">
+    <span class="music-icon" aria-hidden="true">🎵</span>
+    <span class="music-label">Música</span>
+  </button>
 
   <div class="intro-curtain" aria-hidden="true">
     <div class="curtain-panel curtain-left"></div>
@@ -528,6 +609,74 @@
             if (event.animationName === 'introOverlayFadeOut') finishIntro();
           });
         }
+      }, { once: true });
+    })();
+  </script>
+
+
+  <script>
+    (function () {
+      document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById('birthday-music');
+        const button = document.querySelector('.music-button');
+        if (!audio || !button) return;
+
+        audio.volume = 0.16;
+        audio.loop = true;
+
+        const setButtonState = (isPlaying) => {
+          button.classList.toggle('is-playing', isPlaying);
+          button.classList.toggle('needs-tap', !isPlaying);
+          button.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+          button.setAttribute('aria-label', isPlaying ? 'Pausar música' : 'Activar música');
+          const label = button.querySelector('.music-label');
+          if (label) label.textContent = isPlaying ? 'Pausar' : 'Música';
+        };
+
+        const tryPlayMusic = async () => {
+          try {
+            audio.volume = 0.16;
+            await audio.play();
+            setButtonState(true);
+            return true;
+          } catch (error) {
+            setButtonState(false);
+            return false;
+          }
+        };
+
+        const removeUnlockListeners = () => {
+          ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+            document.removeEventListener(eventName, unlockAudio, true);
+          });
+        };
+
+        const unlockAudio = async (event) => {
+          if (event.target && event.target.closest && event.target.closest('.music-button')) return;
+          const played = await tryPlayMusic();
+          if (played) removeUnlockListeners();
+        };
+
+        button.addEventListener('click', async (event) => {
+          event.stopPropagation();
+          if (audio.paused) {
+            await tryPlayMusic();
+          } else {
+            audio.pause();
+            setButtonState(false);
+          }
+        });
+
+        audio.addEventListener('play', () => setButtonState(true));
+        audio.addEventListener('pause', () => setButtonState(false));
+        audio.addEventListener('ended', () => setButtonState(false));
+
+        tryPlayMusic();
+        window.setTimeout(tryPlayMusic, 700);
+
+        ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+          document.addEventListener(eventName, unlockAudio, true);
+        });
       }, { once: true });
     })();
   </script>
